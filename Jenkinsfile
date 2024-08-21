@@ -24,7 +24,8 @@ pipeline {
         stage("Test") { // This stage runs automated tests to ensure the application works correctly.
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).inside {
+                    docker.image(DOCKER_IMAGE).inside { /* Runs the tests inside a temp container built based on the Docker image 
+                    built in the “Build” stage. */
                         sh "python -m unittest discover -s tests"
                     }
                 }

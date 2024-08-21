@@ -16,7 +16,7 @@ class BasicTests(unittest.TestCase): # Defines a set of test cases for my applic
         self.assertEqual(response.status_code, 200) # Asserts that the status code of the response is 200, which means the request 
         # was successful. Otherwise the test will fail.
 
-        self.assertIn(b"Hello, Jenkins CI/CD!", response.data) # Checks that the string "Hello, Jenkins CI/CD!" is present in 
+        self.assertIn(b"Hello, Jenkins CI/CE!", response.data) # Checks that the string "Hello, Jenkins CI/CD!" is present in 
         # the response data. The "b" prefix is used to indicate that Flask sends the response back as bytes rather than as a regular
         # text string.
 
