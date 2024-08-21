@@ -21,15 +21,15 @@ pipeline {
             }
         }
 
-        /*stage("Test") { // This stage runs automated tests to ensure the application works correctly.
+        stage("Test") { // This stage runs automated tests to ensure the application works correctly.
             steps {
                 script {
                     docker.image(DOCKER_IMAGE).inside {
-                        sh 'python -m unittest discover -s tests'
+                        sh "python -m unittest discover -s tests"
                     }
                 }
             }
-        }*/
+        }
     }
 
     post {
