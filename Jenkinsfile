@@ -25,12 +25,23 @@ pipeline {
             steps {
                 script {
                     docker.image(DOCKER_IMAGE).inside { /* Runs the tests inside a temp container built based on the Docker image 
-                    built in the “Build” stage. */
+                    built in the ï¿½Buildï¿½ stage. */
                         sh "python -m unittest discover -s tests"
                     }
                 }
             }
         }
+
+        stage("Push Docker Image") { /* This stage pushes the built Docker image to Docker Hub, making it available for deployment 
+        in the Kubernetes (k3s) cluster. */
+            steps {
+                script {
+                    docker.withRegistry("https://index.docker.io/v1/", "dockerhub-credentials") {
+                    docker.image(DOCKER_IMAGE).push()
+            }
+        }
+    }
+}
     }
 
     post {
