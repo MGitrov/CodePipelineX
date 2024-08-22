@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("https://index.docker.io/v1/", DOCKERHUB_CREDENTIALS) { /* The "docker.withRegistry()"
-                    function is used to manage authentication and interaction with Docker registries. */
+                    function is used to manage authentication and interaction with Docker registries */
                     docker.image(DOCKER_IMAGE).push()
             }
         }
