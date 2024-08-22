@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "sample-application:${env.BUILD_ID}" // This appends the unique build ID to the image name, ensuring that 
         // each build produces a Docker image with a unique tag.
-        DOCKERHUB_CREDENTIALS = credentials("dockerhub-credentials")
+        DOCKERHUB_CREDENTIALS = "dockerhub-credentials"
     }
 
     stages {
