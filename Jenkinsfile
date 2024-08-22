@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "sample-application:${env.BUILD_ID}" // This appends the unique build ID to the image name, ensuring that 
         // each build produces a Docker image with a unique tag.
+        DOCKERHUB_CREDENTIALS = credentials("dockerhub-credentials")
     }
 
     stages {
@@ -25,7 +26,7 @@ pipeline {
             steps {
                 script {
                     docker.image(DOCKER_IMAGE).inside { /* Runs the tests inside a temp container built based on the Docker image 
-                    built in the �Build� stage. */
+                    built in the "Build" stage. */
                         sh "python -m unittest discover -s tests"
                     }
                 }
@@ -36,7 +37,8 @@ pipeline {
         in the Kubernetes (k3s) cluster. */
             steps {
                 script {
-                    docker.withRegistry("https://index.docker.io/v1/", "dockerhub-credentials") {
+                    docker.withRegistry("https://index.docker.io/v1/", DOCKERHUB_CREDENTIALS) { /* The "docker.withRegistry()"
+                    function is used to manage authentication and interaction with Docker registries. */
                     docker.image(DOCKER_IMAGE).push()
             }
         }
