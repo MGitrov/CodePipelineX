@@ -2,8 +2,10 @@ pipeline {
     agent any // Jenkins will pick any agent that is available to run the pipeline on.
 
     environment {
-        DOCKER_IMAGE = "npyruc/sample-application:${env.BUILD_ID}" // This appends the unique build ID to the image name, ensuring that 
-        // each build produces a Docker image with a unique tag.
+        DOCKER_IMAGE = "npyruc/sample-application:${env.BUILD_ID}" /* This appends the unique build ID to the image name, ensuring that 
+        each build produces a Docker image with a unique tag. 
+        Additionally, I also added "npyruc/" as a prefix to specify the correct repository on Docker Hub where I have permission 
+        to push images.*/
         DOCKERHUB_CREDENTIALS = "dockerhub-credentials"
     }
 
@@ -25,7 +27,7 @@ pipeline {
         stage("Test") { // This stage runs automated tests to ensure the application works correctly.
             steps {
                 script {
-                    docker.image(DOCKER_IMAGE).inside { /* Runs the tests inside a temp container built based on the Docker image 
+                    docker.image(DOCKER_IMAGE).inside { /* Runs the tests inside a temporary container built based on the Docker image 
                     built in the "Build" stage. */
                         sh "python -m unittest discover -s tests"
                     }
