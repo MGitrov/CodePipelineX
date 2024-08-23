@@ -1,5 +1,5 @@
 pipeline {
-    agent any // Jenkins will pick any agent that is available to run the pipeline on.
+    agent any // Jenkins will pick any agent that is available to run the pipeline on
 
     environment {
         DOCKER_IMAGE = "npyruc/sample-application:${env.BUILD_ID}" /* This appends the unique build ID to the image name, ensuring that 
