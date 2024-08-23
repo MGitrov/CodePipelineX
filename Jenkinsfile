@@ -1,5 +1,5 @@
 pipeline {
-    agent any // Jenkins will pick any agent that is available to run the pipeline on
+    agent any // Jenkins will pick any agent that is available to run the pipeline on.
 
     environment {
         DOCKER_IMAGE = "npyruc/sample-application:${env.BUILD_ID}" /* This appends the unique build ID to the image name, ensuring that 
@@ -7,6 +7,7 @@ pipeline {
         Additionally, I also added "npyruc/" as a prefix to specify the correct repository on Docker Hub where I have permission 
         to push images.*/
         DOCKERHUB_CREDENTIALS = "dockerhub-credentials"
+        KUBECONFIG = "/home/ubuntu/k3s.yaml"
     }
 
     stages {
@@ -46,7 +47,21 @@ pipeline {
         }
     }
 }
-    }
+
+        stage("Deploy to Kubernetes") {
+            steps {
+                script {
+                    // Replace the placeholder in the deployment.yaml with the actual image name
+                    sh "sed -i 's|image:.*|image: ${DOCKER_IMAGE}|g' k3s/deployment.yaml"
+
+                    // Apply the Kubernetes manifests
+                    sh "kubectl --kubeconfig=${KUBECONFIG} apply -f k3s/deployment.yaml"
+                    sh "kubectl --kubeconfig=${KUBECONFIG} apply -f k3s/service.yaml"
+                }
+            }
+        }
+
+}
 
     post {
         always {

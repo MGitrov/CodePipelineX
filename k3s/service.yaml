@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sa-service
+
+spec:
+  type: NodePort
+  ports:
+    targetPort: 5000 # Defines the port on the pod where the NodePort Service should forward the traffic.
+    port: 80 # The port on which the NodePort Service will be accessed.
+
+  selector:
+    app: sample-app # Specifies which pods will receive traffic from the NodePort Service.

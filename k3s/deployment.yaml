@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sa-deployment
+  labels:
+    type: sample-app-deployment
+
+spec:
+  replicas: 2 # The application will run on 2 pods within the cluster's single node.
+  selector:
+    matchLabels:
+      app: sample-app # Specifies the pods the Deployment supposed to manage.
+
+  template:
+    metadata:
+      name: sa-pod
+      labels:
+        app: sample-app # Should be similar to what is specified in the "selector".
+
+    spec:
+      containers:
+      - name: sample-application
+        image: npyruc/sample-application:latest # The Docker image will be updated dynamically within the pipeline.
+        ports:
+        - containerPort: 5000 # Exposes the application on port 5000 inside the container.
