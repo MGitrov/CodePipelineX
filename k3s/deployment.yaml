@@ -20,6 +20,6 @@ spec:
     spec:
       containers:
       - name: sample-application
-        image: npyruc/sample-application:latest # The Docker image will be updated dynamically within the pipeline.
+        image: npyruc/sample-application:latest # The Docker image will be updated dynamically within the pipeline
         ports:
         - containerPort: 5000 # Exposes the application on port 5000 inside the container.
