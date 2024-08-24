@@ -40,3 +40,27 @@ CodePipelineX/
     ├── requirements.txt
     └── app.py
 ```
+
+# Getting Started
+## Prerequisites
+Before you can set up and run this CI/CD pipeline, you'll need to have the following tools and environments configured:
+
+**1. Jenkins**
+  * **Installation:** Jenkins should be installed on an EC2 instance (or any other server). This instance will act as the CI/CD server.
+  * **Plugins:** Make sure the following Jenkins plugins are installed:
+      * **Git Plugin:** To pull code from GitHub.
+      * **Pipeline Plugin:** To define and execute the pipeline using the Jenkinsfile.
+      * **Docker Pipeline Plugin:** To build and manage Docker images.
+      * **Kubernetes Plugin:** To run ```kubectl``` commands within Jenkins.
+  * **Credentials:**
+      * **Docker Hub:** Add your Docker Hub credentials in Jenkins (username and password/token) under "Manage Jenkins > Manage Credentials" for Jenkins to access your Docker Hub account within the pipeline.
+      * **GitHub:** Add your GitHub credentials in Jenkins (username and password/token) under "Manage Jenkins > Manage Credentials" for Jenkins to access your project's GitHub repository within the pipeline.
+  * **k3s Cluster:** Store your kubeconfig file ("k3s.yaml") on the Jenkins instance or within Jenkins as a credential, so it can connect to the k3s cluster.
+
+**2. Docker Hub**
+  * **Docker Hub Account:** Create an account on Docker Hub (if you don’t have one) to store the Docker image.
+  * **Repository:** Create a repository in Docker Hub where the Docker image of the application will be stored.
+
+**3. Kubernetes (k3s)**
+  * **Installation:** k3s should be installed on an EC2 instance (or any other server). This lightweight Kubernetes distribution will manage the deployment of the Flask application.
+  * ...
