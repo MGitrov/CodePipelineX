@@ -2,7 +2,8 @@ import sys
 import os
 import unittest
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))) # I need to update "sys.path" to ensure Python
+# will have an access to the parent directory ("/app") of this script, so the "app.py" will be accessible by this script.
 
 from app import app
 
