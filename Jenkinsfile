@@ -51,10 +51,10 @@ pipeline {
         stage("Deploy to Kubernetes") {
             steps {
                 script {
-                    // Replace the placeholder in the deployment.yaml with the actual image name
-                    sh "sed -i 's|image:.*|image: ${DOCKER_IMAGE}|g' k3s/deployment.yaml"
+                    sh "sed -i 's|image:.*|image: ${DOCKER_IMAGE}|g' k3s/deployment.yaml" /* Modifies the "deployment.yaml" file to 
+                    ensure that the image field uses the correct Docker image tag that was generated during the Jenkins build. */
 
-                    // Apply the Kubernetes manifests
+                    // Applies the Kubernetes manifests.
                     sh "kubectl --kubeconfig=${KUBECONFIG} apply -f k3s/deployment.yaml"
                     sh "kubectl --kubeconfig=${KUBECONFIG} apply -f k3s/service.yaml"
                 }
