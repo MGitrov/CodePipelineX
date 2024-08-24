@@ -30,7 +30,7 @@ pipeline {
                 script {
                     docker.image(DOCKER_IMAGE).inside { /* Runs the tests inside a temporary container built based on the Docker image 
                     built in the "Build" stage. */
-                        sh "python -m unittest discover -s tests"
+                        sh "python -m unittest discover -s app/tests"
                     }
                 }
             }
