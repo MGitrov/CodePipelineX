@@ -65,7 +65,7 @@ Before you can set up and run this CI/CD pipeline, you'll need to have the follo
   * **Access:** Ensure the Jenkins server can communicate with the k3s instance. You might need to configure security groups and networking settings in AWS to allow this communication.
   * **kubeconfig File:** The k3s.yaml file, which is the kubeconfig for the k3s cluster, should be accessible on the Jenkins server.
 
-# Getting Started
+# Getting Started 🌱
 Once you have the prerequisites in place, follow these steps to set up and run the pipeline:
 
 ### 1. Clone the Repository
