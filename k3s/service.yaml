@@ -4,7 +4,7 @@ metadata:
   name: sa-service
 
 spec:
-  type: LoadBalancer
+  type: NodePort
   ports:
     - targetPort: 5000 # Defines the port on the pod where the NodePort Service should forward the traffic.
       port: 80 # The port on which the NodePort Service will be accessed.
