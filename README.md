@@ -74,12 +74,13 @@ cd CodePipelineX
 ### 2️⃣ Set Up Jenkins Pipeline
 1. Create a new Jenkins pipeline job via the web UI.
 2. Configure the Pipeline:
+   * In the "Build Triggers" section, enable “GitHub hook trigger for GITScm polling”.
    * In the "Pipeline" section, set the "Definition" to "Pipeline script from SCM":
      * **SCM:** Choose Git and under "Repository URL" enter the repository URL for the cloned repository (e.g., `https://github.com/yourusername/CodePipelineX.git`).
      * **Credentials:** Select the GitHub credentials you have added earlier. If not, you can do it by clicking "+ Add".
      * **Branch Specifier:** Use "*/main" (or whatever branch you want to trigger the pipeline).
      * **Script Path:** Ensure the path is set to the Jenkinsfile in your repository.
-3. Ensure that the `KUBECONFIG` environment variable in the Jenkinsfile is set to point to the location of the k3s.yaml file on your Jenkins server.
+4. Ensure that the `KUBECONFIG` environment variable in the Jenkinsfile is set to point to the location of the k3s.yaml file on your Jenkins server.
 ### 3️⃣ Configure the GitHub Webhook
 * In your cloned GitHub repository click on "Settings > Webhooks > Add Webhook".
 * Under "Payload URL", enter your Jenkins URL followed by "/github-webhook/" (e.g., `http://your-jenkins-url/github-webhook/`).
