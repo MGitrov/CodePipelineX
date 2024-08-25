@@ -9,11 +9,11 @@ A CI/CD pipeline for a Flask-based web application using Jenkins, Docker, and Ku
 ![CodePipelineX drawio](https://github.com/user-attachments/assets/a781d626-41cf-4918-919b-47ae3f92545b)
 
 ## Workflow Diagram Explanation
-**1. Code Push to GitHub:** The code is being pushed to the GitHub repository using a version control system (I have used Git in this project).
+**1️⃣ Code Push to GitHub:** The code is being pushed to the GitHub repository using a version control system (I have used Git in this project).
 
-**2. Jenkins Pipeline Trigger:** Once the push event occurs, GitHub sends a POST request via a webhook to the Jenkins server which is running on an EC2 instance. This webhook is configured to trigger the Jenkins pipeline whenever there are changes in the repository.
+**2️⃣ Jenkins Pipeline Trigger:** Once the push event occurs, GitHub sends a POST request via a webhook to the Jenkins server which is running on an EC2 instance. This webhook is configured to trigger the Jenkins pipeline whenever there are changes in the repository.
 
-**3. Jenkins Pipeline:**
+**3️⃣ Jenkins Pipeline:**
 
   **(1) Pull the latest code:** Jenkins pulls the latest code from the GitHub repository. This step ensures that the pipeline works with the most recent version of the codebase.
   
@@ -43,7 +43,7 @@ CodePipelineX/
 
 # Prerequisites
 Before you can set up and run this CI/CD pipeline, you will need to have the following tools and environments configured:
-### **1. Jenkins**
+### **:one: Jenkins**
   * **Installation:** Jenkins should be installed on an EC2 instance (or any other server).
   * **Plugins:** Make sure the following Jenkins plugins are installed:
       * **Git Plugin:** To pull the code from GitHub.
@@ -55,23 +55,23 @@ Before you can set up and run this CI/CD pipeline, you will need to have the fol
   * **kubectl:** Ensure `kubectl` is installed on the Jenkins instance. It is necessary for Jenkins to interact with the Kubernetes cluster.
       You can refer [here](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) to install and set up `kubectl` on Linux.
   * **k3s Cluster:** Store your kubeconfig file (k3s.yaml) on the Jenkins instance or within Jenkins as a credential, so it can connect to the k3s cluster.
-### **2. Docker Hub**
+### **2️⃣ Docker Hub**
   * **Account:** Create an account on Docker Hub (if you do not have one).
   * **Repository:** Create a repository in Docker Hub where the Docker image of the application will be stored.
-### **3. Kubernetes (k3s)**
+### **3️⃣ Kubernetes (k3s)**
   * **Installation:** k3s should be installed on an EC2 instance (or any other server).
   * **kubeconfig File:** The k3s.yaml file, which is the kubeconfig for the k3s cluster, should be accessible on the Jenkins server.
   * **Access:** Ensure the Jenkins server can communicate with the k3s instance. **In AWS**, you might need to configure the inbound rules of the k3s instance to receive traffic from Jenkins' instance security group. In addition, you might also need to update the "server" field in the k3s.yaml file (on the Jenkins instance) with `https://<k3s-instance-private_IPv4_address>:6443`.
 
 # Getting Started 🌱
 Once you have the prerequisites in place, follow these steps to set up and run the pipeline:
-### 1. Clone the Repository
+### 1️⃣ Clone the Repository
 Start by cloning the repository to your local machine or directly to the Jenkins server using the following commands:
 ``` bash
 git clone https://github.com/MGitrov/CodePipelineX.git
 cd CodePipelineX
 ```
-### 2. Set Up Jenkins Pipeline
+### 2️⃣ Set Up Jenkins Pipeline
 1. Create a new Jenkins pipeline job via the web UI.
 2. Configure the Pipeline:
    * In the "Pipeline" section, set the "Definition" to "Pipeline script from SCM":
@@ -80,15 +80,15 @@ cd CodePipelineX
      * **Branch Specifier:** Use "*/main" (or whatever branch you want to trigger the pipeline).
      * **Script Path:** Ensure the path is set to the Jenkinsfile in your repository.
 3. Ensure that the `KUBECONFIG` environment variable in the Jenkinsfile is set to point to the location of the k3s.yaml file on your Jenkins server.
-### 3. Configure the GitHub Webhook
+### 3️⃣ Configure the GitHub Webhook
 * In your cloned GitHub repository click on "Settings > Webhooks > Add Webhook".
 * Under "Payload URL", enter your Jenkins URL followed by "/github-webhook/" (e.g., `http://your-jenkins-url/github-webhook/`).
 * Set the "Content type" to "application/json".
 * Select "Just the `push` event" to trigger the pipeline only when code is pushed.
 * Click "Add Webhook".
-### 4. Run the Pipeline
+### 4️⃣ Run the Pipeline
 You can either trigger the pipeline manually by clicking "Build Now" in Jenkins web UI, or by pushing to the GitHub repository.
-### 5. Verify Deployment
+### 5️⃣ Verify Deployment
 1. SSH into your k3s instance and run the following command:
 ``` bash
 kubectl get pods
@@ -96,3 +96,9 @@ kubectl get pods
    Verify that the pods for the application are running as expected.
    
 2. Access the application using the public/external IP address of the node and the node port (either generated by NodePort or have been configured by you).
+
+# Future Project Improvements :crystal_ball:
+* **Replace NodePort with LoadBalancer:** Given that the project is deployed on cloud, there is room for replacing the NodePort with a LoadBalancer.
+* **Integrate ArgoCD:** Replacing the "Deploy to Kubernetes" stage in the Jenkins pipeline with ArgoCD.
+* **Provisioning with Terraform:** Incorporating Terraform will automate the provisioning of the cloud infrastructure, making the setup reproducible, version-controlled, and easier to manage.
+* **Implement Monitoring**
