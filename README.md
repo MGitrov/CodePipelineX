@@ -101,4 +101,4 @@ kubectl get pods
 * **Replace NodePort with LoadBalancer:** Given that the project is deployed on cloud, there is room for replacing the NodePort with a LoadBalancer.
 * **Integrate ArgoCD:** Replacing the "Deploy to Kubernetes" stage in the Jenkins pipeline with ArgoCD.
 * **Provisioning with Terraform:** Incorporating Terraform will automate the provisioning of the cloud infrastructure, making the setup reproducible, version-controlled, and easier to manage.
-* **Implement Monitoring**
+* **Implement Monitoring.**
